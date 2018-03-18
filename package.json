@@ -1,0 +1,25 @@
+{
+  "name": "array-explorer-cli",
+  "version": "0.1.0",
+  "description": "CLI Tool to help find the array method you need without digging through the docs",
+  "main": "./src/index.js",
+  "author": "Ademola Adegbuyi <ooade96@gmail.com>",
+  "bin": {
+    "array-explorer": "./src/index.js",
+    "arr-explorer": "./src/index.js"
+  },
+  "scripts": {
+    "test": "node ./test.js | tap-spec"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.0",
+    "inquirer": "^5.1.0"
+  },
+  "devDependencies": {
+    "tap-spec": "^4.1.1",
+    "tape": "^4.9.0"
+  }
+}
