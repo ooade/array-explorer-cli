@@ -10,7 +10,7 @@
 ## Installation
 
 ```sh
-npm i -g array-explorer
+npm i -g array-explorer-cli
 ```
 
 ## Usage
