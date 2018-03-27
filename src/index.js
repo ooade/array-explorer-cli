@@ -6,7 +6,7 @@ const clear = require('clear')
 const chalk = require('chalk')
 const state = require('./store').state
 const text = require('./text')
-const { merge, generateQuestions } = require('./utils')
+const generateQuestions = require('./generateQuestions')
 
 clear()
 
@@ -25,9 +25,9 @@ const INIT_QUESTION = [
 	}
 ]
 
-let questions = generateQuestions.init({ keys, state, text })
+let questions = generateQuestions({ keys, state, text })
 
-questions = INIT_QUESTION.concat(merge(questions))
+questions = INIT_QUESTION.concat(...questions)
 
 inquirer.prompt(questions).then(answers => {
 	let answer = Object.keys(answers).filter(answer => answer !== 'init')
