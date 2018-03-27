@@ -5,7 +5,7 @@ const figlet = require('figlet')
 const clear = require('clear')
 const chalk = require('chalk')
 const state = require('./store').state
-const text = require('./text')
+const locale = require('./locale')
 const generateQuestions = require('./generateQuestions')
 
 clear()
@@ -20,12 +20,12 @@ const INIT_QUESTION = [
 	{
 		type: 'list',
 		name: 'init',
-		message: 'I have an array, I would like to',
-		choices: keys.map(key => text[key][0])
+		message: locale.en.firstMethod,
+		choices: locale.en.primaryOptions
 	}
 ]
 
-let questions = generateQuestions({ keys, state, text })
+let questions = generateQuestions({ keys, state, locale: locale.en })
 
 questions = INIT_QUESTION.concat(...questions)
 

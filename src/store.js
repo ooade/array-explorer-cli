@@ -2,6 +2,7 @@
 
 module.exports = {
 	state: {
+		selectedMethod: '',
 		adding: [
 			{
 				name: 'splice',
