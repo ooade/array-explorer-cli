@@ -1,11 +1,33 @@
 const test = require('tape')
-const { merge } = require('./src/utils')
+const options = require('./src/options')
+const locale = require('./src/locale')
 
-test('loose merge', t => {
+const questions = options()
+
+test('initial', t => {
+	t.plan(2)
+
+	t.deepEqual(
+		questions[0].name,
+		'init',
+		'Should display the right initial name'
+	)
+
+	t.deepEqual(
+		questions[0].choices,
+		locale.en.primaryOptions,
+		'Should display the right initial options'
+	)
+})
+
+test('adding', t => {
 	t.plan(1)
 
-	let actual = merge([1, 2, 4, [5, 6, 7]])
-	let expected = [1, 2, 4, 5, 6, 7]
+	t.deepEqual(question[1].name, 'adding')
+})
 
-	t.deepEqual(actual, expected)
+test('removing', t => {
+	t.plan(1)
+
+	t.deepEqual(question[2].name, 'removing')
 })

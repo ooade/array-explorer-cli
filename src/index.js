@@ -5,8 +5,7 @@ const figlet = require('figlet')
 const clear = require('clear')
 const chalk = require('chalk')
 const state = require('./store').state
-const locale = require('./locale')
-const generateQuestions = require('./generateQuestions')
+const options = require('./options')
 
 clear()
 
@@ -14,20 +13,7 @@ console.log(figlet.textSync('[ ] Explorer'))
 
 console.log()
 
-const keys = Object.keys(state)
-
-const INIT_QUESTION = [
-	{
-		type: 'list',
-		name: 'init',
-		message: locale.en.firstMethod,
-		choices: locale.en.primaryOptions
-	}
-]
-
-let questions = generateQuestions({ keys, state, locale: locale.en })
-
-questions = INIT_QUESTION.concat(...questions)
+const questions = options()
 
 inquirer.prompt(questions).then(answers => {
 	let answer = Object.keys(answers).filter(answer => answer !== 'init')
