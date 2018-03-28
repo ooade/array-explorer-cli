@@ -16,9 +16,15 @@ const firstOption = [
 const localeMethods = Object.keys(state).slice(1)
 
 // Picks the methodVerbs
-const methodVerbs = Object.keys(locale['en'].methodTypes)
-	.map(s => s.replace('string', ''))
-	.concat(['', ''])
+const methodVerbs = {
+	adding: locale['en'].methodTypes.add,
+	removing: locale['en'].methodTypes.remove,
+	string: '',
+	ordering: '',
+	other: '',
+	iterate: locale['en'].methodTypes['iterate by'],
+	find: locale['en'].findMethod
+}
 
 // Maps method to primary option index
 const mapMethodToIndex = {
@@ -46,12 +52,12 @@ function generateOptions() {
 
 	const options = localeMethods.map(method => {
 		const methodIndex = mapMethodToIndex[method]
-		const methodVerb = lang.methodTypes[methodVerbs[methodIndex]] || ''
+		const methodVerb = methodVerbs[method]
 
 		let methodOptions = lang.methodOptions
 		let choices
 
-		if (methodVerb === 'find') {
+		if (method === 'find') {
 			choices = [lang.singleItem, lang.manyItems]
 			methodOptions = lang.findMethod
 		} else {
@@ -60,8 +66,11 @@ function generateOptions() {
 
 		return singleOption(
 			'list',
-			method,
-			methodOptions + ' ' + methodVerb,
+			method.trim(),
+			(method === 'find'
+				? methodVerb
+				: methodOptions + ' ' + methodVerb
+			).trim(),
 			choices,
 			answers => answers.init === lang.primaryOptions[methodIndex]
 		)
@@ -76,8 +85,8 @@ function generateOptions() {
 
 			return singleOption(
 				'list',
-				method,
-				lang.methodOptions + ' find', // change this
+				method.trim(),
+				(lang.methodOptions + ' find').trim(), // change this
 				state.find[method].map(s => s.shortDesc),
 				answers => answers.find === mapFindOptions[method]
 			)

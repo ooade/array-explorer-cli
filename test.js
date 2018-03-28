@@ -1,33 +1,183 @@
 const test = require('tape')
 const options = require('./src/options')
-const locale = require('./src/locale')
+const state = require('./src/store').state
 
 const questions = options()
 
-test('initial', t => {
-	t.plan(2)
+const findQuestion = name => questions.find(obj => obj.name === name)
 
-	t.deepEqual(
-		questions[0].name,
-		'init',
-		'Should display the right initial name'
-	)
+const getOptions = name => state[name].map(s => s.shortDesc)
 
-	t.deepEqual(
-		questions[0].choices,
-		locale.en.primaryOptions,
-		'Should display the right initial options'
-	)
-})
+test('en:', t => {
+	test('initial', t => {
+		t.plan(3)
 
-test('adding', t => {
-	t.plan(1)
+		let question = findQuestion('init')
 
-	t.deepEqual(question[1].name, 'adding')
-})
+		t.deepEqual(question.name, 'init', 'name should be init ')
 
-test('removing', t => {
-	t.plan(1)
+		t.deepEqual(
+			question.message,
+			'I have an array, I would like to',
+			'displays appropriate message'
+		)
 
-	t.deepEqual(question[2].name, 'removing')
+		t.deepEqual(
+			question.choices,
+			[
+				'add items or other arrays',
+				'remove items',
+				'find items',
+				'walk over items',
+				'return a string',
+				'order an array',
+				'something else'
+			],
+			'displays the right choices'
+		)
+	})
+
+	test('adding', t => {
+		t.plan(3)
+
+		let name = 'adding'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(
+			question.message,
+			'I need to add',
+			'displays appropriate message'
+		)
+
+		t.deepEqual(
+			question.choices,
+			getOptions(name),
+			'displays the right choices'
+		)
+	})
+
+	test('removing', t => {
+		t.plan(3)
+
+		let name = 'removing'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(
+			question.message,
+			'I need to remove',
+			'displays appropriate message'
+		)
+
+		t.deepEqual(
+			question.choices,
+			getOptions(name),
+			'displays the right choices'
+		)
+	})
+
+	test('string', t => {
+		t.plan(3)
+
+		let name = 'string'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(question.message, 'I need to', 'displays appropriate message')
+
+		t.deepEqual(
+			question.choices,
+			getOptions(name),
+			'displays the right choices'
+		)
+	})
+
+	test('ordering', t => {
+		t.plan(3)
+
+		let name = 'ordering'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(question.message, 'I need to', 'displays appropriate message')
+
+		t.deepEqual(
+			question.choices,
+			getOptions(name),
+			'displays the right choices'
+		)
+	})
+
+	test('other', t => {
+		t.plan(3)
+
+		let name = 'other'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(question.message, 'I need to', 'displays appropriate message')
+
+		t.deepEqual(
+			question.choices,
+			getOptions(name),
+			'displays the right choices'
+		)
+	})
+
+	test('iterate', t => {
+		t.plan(3)
+
+		let name = 'iterate'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(
+			question.message,
+			'I need to iterate by',
+			'displays appropriate message'
+		)
+
+		t.deepEqual(
+			question.choices,
+			getOptions(name),
+			'displays the right choices'
+		)
+	})
+
+	test('find', t => {
+		t.plan(3)
+
+		let name = 'find'
+
+		let question = findQuestion(name)
+
+		t.deepEqual(question.name, name, 'name should be ' + name)
+
+		t.deepEqual(
+			question.message,
+			"I'm trying to find",
+			'displays appropriate message'
+		)
+
+		t.deepEqual(
+			question.choices,
+			['one item', 'one or many items'],
+			'displays the right choices'
+		)
+	})
+
+	t.end()
 })
