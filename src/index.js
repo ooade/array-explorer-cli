@@ -4,16 +4,18 @@ const inquirer = require('inquirer')
 const figlet = require('figlet')
 const clear = require('clear')
 const chalk = require('chalk')
-const state = require('./store').state
-const options = require('./options')
+const argv = require('minimist')(process.argv.slice(2))
 
 clear()
+
+const lang = argv.lang || argv.l || 'en'
+
+let questions = require('./options')(lang)
+let state = require('./store')[lang].state
 
 console.log(figlet.textSync('[ ] Explorer'))
 
 console.log()
-
-const questions = options()
 
 inquirer.prompt(questions).then(answers => {
 	let answer = Object.keys(answers).filter(answer => answer !== 'init')

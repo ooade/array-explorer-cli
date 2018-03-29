@@ -1,30 +1,5 @@
 #!/usr/bin/env node
 const locale = require('./locale')
-const state = require('./store').state
-
-// The first option that is shown to users
-const firstOption = [
-	{
-		type: 'list',
-		name: 'init',
-		message: locale['en'].firstMethod,
-		choices: locale['en'].primaryOptions
-	}
-]
-
-// This has the localMethods names
-const localeMethods = Object.keys(state).slice(1)
-
-// Picks the methodVerbs
-const methodVerbs = {
-	adding: locale['en'].methodTypes.add,
-	removing: locale['en'].methodTypes.remove,
-	string: '',
-	ordering: '',
-	other: '',
-	iterate: locale['en'].methodTypes['iterate by'],
-	find: locale['en'].findMethod
-}
 
 // Maps method to primary option index
 const mapMethodToIndex = {
@@ -37,8 +12,34 @@ const mapMethodToIndex = {
 	find: 2
 }
 
-function generateOptions() {
-	let lang = locale['en']
+function generateOptions(lang) {
+	let localeLang = locale[lang]
+
+	const state = require('./store')[lang].state
+
+	// This has the localMethods names
+	const localeMethods = Object.keys(state).slice(1)
+
+	// The first option that is shown to users
+	const firstOption = [
+		{
+			type: 'list',
+			name: 'init',
+			message: localeLang.firstMethod,
+			choices: localeLang.primaryOptions
+		}
+	]
+
+	// Picks the methodVerbs
+	const methodVerbs = {
+		adding: localeLang.methodTypes.add,
+		removing: localeLang.methodTypes.remove,
+		string: '',
+		ordering: '',
+		other: '',
+		iterate: localeLang.methodTypes['iterate by'],
+		find: localeLang.findMethod
+	}
 
 	function singleOption(type, name, message, choices, when) {
 		return {
@@ -54,12 +55,12 @@ function generateOptions() {
 		const methodIndex = mapMethodToIndex[method]
 		const methodVerb = methodVerbs[method]
 
-		let methodOptions = lang.methodOptions
+		let methodOptions = localeLang.methodOptions
 		let choices
 
 		if (method === 'find') {
-			choices = [lang.singleItem, lang.manyItems]
-			methodOptions = lang.findMethod
+			choices = [localeLang.singleItem, localeLang.manyItems]
+			methodOptions = localeLang.findMethod
 		} else {
 			choices = state[method].map(s => s.shortDesc)
 		}
@@ -72,21 +73,21 @@ function generateOptions() {
 				: methodOptions + ' ' + methodVerb
 			).trim(),
 			choices,
-			answers => answers.init === lang.primaryOptions[methodIndex]
+			answers => answers.init === localeLang.primaryOptions[methodIndex]
 		)
 	})
 
 	return options.concat(
 		Object.keys(state.find).map(method => {
 			const mapFindOptions = {
-				single: lang.singleItem,
-				many: lang.manyItems
+				single: localeLang.singleItem,
+				many: localeLang.manyItems
 			}
 
 			return singleOption(
 				'list',
 				method.trim(),
-				(lang.methodOptions + ' find').trim(), // change this
+				(localeLang.methodOptions + ' ' + localeLang.methodTypes.find).trim(),
 				state.find[method].map(s => s.shortDesc),
 				answers => answers.find === mapFindOptions[method]
 			)
@@ -94,4 +95,4 @@ function generateOptions() {
 	)
 }
 
-module.exports = () => firstOption.concat(...generateOptions())
+module.exports = generateOptions
