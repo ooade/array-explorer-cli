@@ -12,6 +12,16 @@ const mapMethodToIndex = {
 	find: 2
 }
 
+function singleOption(type, name, message, choices, when) {
+	return {
+		type,
+		name,
+		message,
+		choices,
+		when
+	}
+}
+
 function generateOptions(lang) {
 	let localeLang = locale[lang]
 
@@ -41,16 +51,6 @@ function generateOptions(lang) {
 		find: localeLang.findMethod
 	}
 
-	function singleOption(type, name, message, choices, when) {
-		return {
-			type,
-			name,
-			message,
-			choices,
-			when
-		}
-	}
-
 	const options = localeMethods.map(method => {
 		const methodIndex = mapMethodToIndex[method]
 		const methodVerb = methodVerbs[method]
@@ -77,21 +77,23 @@ function generateOptions(lang) {
 		)
 	})
 
-	return options.concat(
-		Object.keys(state.find).map(method => {
-			const mapFindOptions = {
-				single: localeLang.singleItem,
-				many: localeLang.manyItems
-			}
+	return firstOption.concat(
+		options.concat(
+			Object.keys(state.find).map(method => {
+				const mapFindOptions = {
+					single: localeLang.singleItem,
+					many: localeLang.manyItems
+				}
 
-			return singleOption(
-				'list',
-				method.trim(),
-				(localeLang.methodOptions + ' ' + localeLang.methodTypes.find).trim(),
-				state.find[method].map(s => s.shortDesc),
-				answers => answers.find === mapFindOptions[method]
-			)
-		})
+				return singleOption(
+					'list',
+					method.trim(),
+					(localeLang.methodOptions + ' ' + localeLang.methodTypes.find).trim(),
+					state.find[method].map(s => s.shortDesc),
+					answers => answers.find === mapFindOptions[method]
+				)
+			})
+		)
 	)
 }
 
