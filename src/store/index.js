@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
 module.exports = {
-	en: require('./en')
+	en: require('./en'),
+	fr: require('./fr')
 }
