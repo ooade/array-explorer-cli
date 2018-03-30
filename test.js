@@ -1,8 +1,8 @@
 const test = require('tape')
 const options = require('./src/options')
-const state = require('./src/store').state
+let state = require('./src/store')['en'].state
 
-const questions = options()
+let questions = options('en')
 
 const findQuestion = name => questions.find(obj => obj.name === name)
 
