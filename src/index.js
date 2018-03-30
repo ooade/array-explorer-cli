@@ -9,11 +9,38 @@ const argv = require('minimist')(process.argv.slice(2))
 clear()
 
 const lang = argv.lang || argv.l || 'en'
+const help = argv.help || argv.h || argv._[0] === 'help'
+
+console.log(figlet.textSync('[ ] Explorer'))
+
+if (help) {
+	console.log()
+
+	console.log(
+		'- A CLI package to help figure out what JavaScript array method would be best to use at any given time'
+	)
+
+	console.log()
+
+	console.log('usage: array-explorer [help] [-h | --help] <lang>')
+
+	console.log()
+
+	console.log('<lang> can be one of the following:')
+
+	console.log()
+
+	console.log(
+		Object.keys(require('./locale'))
+			.map(s => '- ' + s)
+			.join('\n')
+	)
+
+	return
+}
 
 let questions = require('./options')(lang)
 let state = require('./store')[lang].state
-
-console.log(figlet.textSync('[ ] Explorer'))
 
 console.log()
 
