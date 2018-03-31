@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 module.exports = {
 	state: {
 		selectedMethod: '',

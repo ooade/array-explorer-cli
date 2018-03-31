@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 module.exports = {
 	firstMethod: 'I have an array, I would like to',
 	findMethod: "I'm trying to find",

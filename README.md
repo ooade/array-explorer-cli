@@ -29,6 +29,17 @@ and feel the magic :star:
 
 You should also check out [Object Explorer CLI](https://github.com/ooade/object-explorer-cli)
 
+## Available Options
+
+- -help - displays help
+- -lang=\<code\> | -l \<code\> - displays array-explorer in the specified language code
+
+## List of Available Languages
+
+| Code | Language |
+| - | - |
+|ar|Arabic|
+
 ## Aknowledgements
 Thanks to [Sarah Drasner](https://github.com/sdras). She created the [array-explorer](https://github.com/sdras/array-explorer) web version which you could visit using https://sdras.github.io/array-explorer/
 

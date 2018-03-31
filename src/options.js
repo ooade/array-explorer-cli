@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const locale = require('./locale')
 
 // Maps method to primary option index

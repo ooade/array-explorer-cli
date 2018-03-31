@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 module.exports = {
 	firstMethod: "J'ai un tableau, je voudrais",
 	findMethod: "J'essaye de trouver",
