@@ -8,7 +8,11 @@ const argv = require('minimist')(process.argv.slice(2))
 
 clear()
 
-const lang = argv.lang || argv.l || 'en'
+const lang =
+	typeof argv.lang === 'string'
+		? argv.lang
+		: typeof argv.l === 'string' ? argv.l : 'en'
+
 const help = argv.help || argv.h || argv._[0] === 'help'
 
 console.log(figlet.textSync('[ ] Explorer'))

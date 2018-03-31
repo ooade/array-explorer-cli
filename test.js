@@ -1,14 +1,18 @@
 const test = require('tape')
 const options = require('./src/options')
-let state = require('./src/store')['en'].state
 
-let questions = options('en')
-
-const findQuestion = name => questions.find(obj => obj.name === name)
-
-const getOptions = name => state[name].map(s => s.shortDesc)
+const isObject = prop =>
+	!Array.isArray(prop) && prop !== null && typeof prop === 'object'
 
 test('en:', t => {
+	let lang = 'en'
+
+	let state = require('./src/store')[lang].state
+	let questions = options(lang)
+
+	const findQuestion = name => questions.find(obj => obj.name === name)
+	const getOptions = name => state[name].map(s => s.shortDesc)
+
 	test('initial', t => {
 		t.plan(3)
 
@@ -179,5 +183,20 @@ test('en:', t => {
 		)
 	})
 
+	t.end()
+})
+
+test('others:', t => {
+	Object.keys(require('./src/locale')).map(lang => {
+		test(lang + ' works', t => {
+			t.plan(2)
+
+			let state = require('./src/store')[lang].state
+			let questions = options(lang)
+
+			t.equal(isObject(state), true)
+			t.equal(Array.isArray(questions), true)
+		})
+	})
 	t.end()
 })
