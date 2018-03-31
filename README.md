@@ -31,8 +31,8 @@ You should also check out [Object Explorer CLI](https://github.com/ooade/object-
 
 ## Available Options
 
-- -help - displays help
-- -lang=\<short code\> | -l \<short code\> - displays array-explorer in the specified language code
+- **-help** - displays help
+- **-lang=\<short code\> | -l \<short code\>** - displays array-explorer in the specified language code
 
 ## List of Available Languages
 
