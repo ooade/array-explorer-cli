@@ -14,6 +14,23 @@ const help = argv.help || argv.h || argv._[0] === 'help'
 console.log(figlet.textSync('[ ] Explorer'))
 
 if (help) {
+	const countryCodeWithLanguage = `|ar|Arabic|
+		|bg|Bulgarian|
+		|cz|Czech|
+		|de|German|
+		|el|Greek|
+		|en|English(Default)|
+		|es|Spanish|
+		|fr|French|
+		|id|Indonesian|
+		|it|Italian|
+		|nl|Dutch|
+		|pt|Portuguese|
+		|ru|Russian|
+		|sr|Serbian|
+		|ua|Ukrainian|
+		|zh_cn|Chinese (Simplified)|`
+
 	console.log()
 
 	console.log(
@@ -22,19 +39,28 @@ if (help) {
 
 	console.log()
 
-	console.log('usage: array-explorer [help] [-h | --help] <lang>')
-
-	console.log()
-
-	console.log('<lang> can be one of the following:')
-
-	console.log()
-
 	console.log(
-		Object.keys(require('./locale'))
-			.map(s => '- ' + s)
-			.join('\n')
+		`${chalk.bold('usage:')} array-explorer [help] [-h | --help] <short code>`
 	)
+
+	console.log()
+
+	console.log('<short code> can be one of the following:')
+
+	console.log()
+
+	countryCodeWithLanguage
+		.split('\n')
+		.map(s => s.split('|').slice(1, 3))
+		.map(([code, lang]) => {
+			console.log(`- ${chalk.bold(code)} - ${chalk.hex('#888888')(lang)}`)
+		})
+
+	console.log()
+
+	console.log('Example: array-explorer --lang es')
+
+	console.log()
 
 	return
 }

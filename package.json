@@ -1,7 +1,8 @@
 {
   "name": "array-explorer-cli",
   "version": "0.1.1",
-  "description": "CLI Tool to help find the array method you need without digging through the docs",
+  "description":
+    "CLI Tool to help find the array method you need without digging through the docs",
   "main": "./src/index.js",
   "author": "Ademola Adegbuyi <ooade96@gmail.com>",
   "bin": {

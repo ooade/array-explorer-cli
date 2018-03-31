@@ -32,13 +32,30 @@ You should also check out [Object Explorer CLI](https://github.com/ooade/object-
 ## Available Options
 
 - -help - displays help
-- -lang=\<code\> | -l \<code\> - displays array-explorer in the specified language code
+- -lang=\<short code\> | -l \<short code\> - displays array-explorer in the specified language code
 
 ## List of Available Languages
 
-| Code | Language |
+| Short Code | Language |
 | - | - |
 |ar|Arabic|
+|bg|Bulgarian|
+|cz|Czech|
+|de|German|
+|el|Greek|
+|en|English(Default)|
+|es|Spanish|
+|fr|French|
+|id|Indonesian|
+|it|Italian|
+|nl|Dutch|
+|pt|Portuguese|
+|ru|Russian|
+|sr|Serbian|
+|ua|Ukrainian|
+|zh_cn|Chinese (Simplified)|
+
+Create an issue to add more :tada:
 
 ## Aknowledgements
 Thanks to [Sarah Drasner](https://github.com/sdras). She created the [array-explorer](https://github.com/sdras/array-explorer) web version which you could visit using https://sdras.github.io/array-explorer/
