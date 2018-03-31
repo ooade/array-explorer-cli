@@ -24,20 +24,34 @@ function singleOption(type, name, message, choices, when) {
 function generateOptions(lang) {
 	let localeLang = locale[lang]
 
+	if (!Object.keys(locale).some(l => l === lang)) {
+		console.log()
+
+		console.log('Language not found!')
+
+		console.log()
+
+		console.log(
+			'Type `array-explorer help` to see list of available languages'
+		)
+
+		console.log()
+
+		process.exit(1)
+	}
+
 	const state = require('./store')[lang].state
 
 	// This has the localMethods names
 	const localeMethods = Object.keys(state).slice(1)
 
 	// The first option that is shown to users
-	const firstOption = [
-		{
-			type: 'list',
-			name: 'init',
-			message: localeLang.firstMethod,
-			choices: localeLang.primaryOptions
-		}
-	]
+	const firstOption = [{
+		type: 'list',
+		name: 'init',
+		message: localeLang.firstMethod,
+		choices: localeLang.primaryOptions
+	}]
 
 	// Picks the methodVerbs
 	const methodVerbs = {
@@ -67,9 +81,9 @@ function generateOptions(lang) {
 		return singleOption(
 			'list',
 			method.trim(),
-			(method === 'find'
-				? methodVerb
-				: methodOptions + ' ' + methodVerb
+			(method === 'find' ?
+				methodVerb :
+				methodOptions + ' ' + methodVerb
 			).trim(),
 			choices,
 			answers => answers.init === localeLang.primaryOptions[methodIndex]
